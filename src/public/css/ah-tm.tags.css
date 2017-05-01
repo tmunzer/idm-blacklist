@@ -153,3 +153,16 @@ h3 .header-input {
 h3 .header-input md-select-value {
     padding: 0px !important;
 }
+
+.exit {
+    margin: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    height: 24px;
+    width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    color: rgb(255,255,255);
+    fill: rgb(255,255,255);
+}
