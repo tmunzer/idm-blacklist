@@ -1,0 +1,61 @@
+doctype html5
+html
+    head
+        title= title
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel='stylesheet' href='/css/ah-tm.tags.css')
+        link(rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css")
+        link(rel='stylesheet' href='/css/ah-tm.login.css')
+
+        script(type="text/javascript").
+            function fadeIn(element){    
+                setTimeout(function(){
+                    var i = 1;
+                    var f = 0.05;
+                    element.style.opacity = parseFloat(element.style.opacity) - (f * i * i);
+                    i++;
+                    if (element.style.opacity > 0 && i < 50) fadeIn(element)
+                    else element.parentNode.removeChild(element);;
+                    }, 20);
+            }
+            document.addEventListener("DOMContentLoaded", function(event) {
+                var element = document.getElementById("loading"); 
+                element.style.opacity = 1.0;                
+                fadeIn(element);
+            });
+
+
+    body(ng-app="login")
+        div(id="loading")
+        div(style="border-top: 2px solid rgb(255, 195, 15);" class="user-home-wrap" ng-controller="LoginCtrl")
+        img(src="/images/login_page_logo.png" alt="Aerohive" class="ah-logo")
+        div.page-footer
+            span(style="border: none;") © 2017 Aerohive Networks. All Rights Reserved.
+
+
+        div(layout="column" layout-align="center center" layout-gt-sm="row" layout-align-gt-sm="center start")
+
+            div(style="width: 450px;"  layout-margin)
+                div.inside(md-whiteframe="5" style="width: 100%")
+                    md-toolbar
+                        div.md-toolbar-tools
+                            h2 Access with IDM Token
+                    md-content(layout="column")                        
+                        form(action="/" method="post")
+                            md-input-container.md-block.flex-gt-sm
+                                label IDM Token
+                                textarea(required="required" id="token" name="token" ng-model="token" rows="5" md-no-autogrow)                            
+                            div(style="float: right")
+                                md-button.md-raised.md-primary(type="submit" aria-label="Connect") Access                            
+
+
+        script(src="/bower_components/angular/angular.min.js")
+        script(src="/bower_components/angular-sanitize/angular-sanitize.min.js")
+        script(src="/bower_components/angular-aria/angular-aria.js")
+        script(src="/bower_components/angular-animate/angular-animate.min.js")
+        script(src="/bower_components/angular-material/angular-material.js")
+        script(src="/bower_components/angular-messages/angular-messages.js")
+        script(src="/bower_components/angular-translate/angular-translate.min.js")
+        script(src="/bower_components/angular-sanitize/angular-sanitize.min.js")
+        script(src="/web-app/login.js")
+

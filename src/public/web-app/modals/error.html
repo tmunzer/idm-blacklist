@@ -1,0 +1,16 @@
+<md-dialog aria-label="List dialog" style="width:400px">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Sorry, an error occured...</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+
+        <div class="md-dialog-content">
+            <span>{{message}}</span>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="confirm()" class="md-raised md-primary" aria-label="ok">Ok</md-button>
+    </md-dialog-actions>
+</md-dialog>

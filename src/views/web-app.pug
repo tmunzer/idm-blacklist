@@ -1,0 +1,90 @@
+doctype html5
+html
+    head
+        title= title
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+
+        link(rel="stylesheet" href="/bower_components/material-design-icons/iconfont/material-icons.css")
+        link(rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css")
+        link(rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css")
+        link(rel='stylesheet' href='/css/ah-tm.tags.css')
+        link(rel='stylesheet' href='/css/ah-tm.loading.css')
+
+        script(type="text/javascript").
+            function fadeIn(element){    
+                setTimeout(function(){
+                    var i = 1;
+                    var f = 0.05;
+                    element.style.opacity = parseFloat(element.style.opacity) - (f * i * i);
+                    i++;
+                    if (element.style.opacity > 0 && i < 50) fadeIn(element)
+                    else element.parentNode.removeChild(element);;
+                    }, 20);
+            }
+            document.addEventListener("DOMContentLoaded", function(event) {
+                var element = document.getElementById("loading"); 
+                element.style.opacity = 1.0;                
+                fadeIn(element);
+            });
+
+
+    body(ng-app="lockout" ng-controller="AppCtrl").icons-docs
+        div(id="loading")
+        header.md-page-header
+            div.header
+            md-toolbar.header.fixed(layout='row')
+                h1.logo.md-toolbar-tools
+                    img(src="/images/login_page_logo_white.png" alt="Aerohive" style="display:flex; height: 50px")                                              
+                span(flex)
+                div(style="display:flex; padding-right: 20px")                                              
+                    md-button(aria-label="logout" href="/logout/" style="margin: auto;")                        
+                        md-icon(class="material-icons" aria-label="menu") exit_to_app
+                        span Exit
+
+            
+        div(id="main")
+            section
+                article
+                    md-card
+                        md-card-header.small(layout-align="start center")
+                            h2 Locked Out Devices
+                            div(flex)
+                            md-button.md-primary.md-raised(ng-click="refresh()") Refresh                                                 
+                        div(layout="row" layout-align="start center" layout-margin md-whiteframe="2")                            
+                            md-input-container.no-error(md-no-float="true" flex)
+                                input(type="text" ng-model="query.filter" ng-model-options="{ debounce: 250 }" placeholder="Filter" )                                                        
+                            span Displayed: {{displayedBlacklist.length}} | Total: {{blacklist.length}}                        
+                        md-table-container
+                            table(md-table ng-model="blacklist" md-progress="request")
+                                thead(md-head md-order="query.order")
+                                    tr(md-row)
+                                        th(md-column md-order-by="customerId") Customer Id
+                                        th(md-column md-order-by="clientMac") Client MAC
+                                        th(md-column md-order-by="ssid") SSID
+                                        th(md-column md-order-by="lockingStartTime") Locking Start Time
+                                        th(md-column)
+                                tbody(md-body)
+                                    tr(md-row ng-repeat="entry in displayedBlacklist | orderBy: query.order  | limitTo: query.limit: (query.page - 1) * query.limit")
+                                        td(md-cell) {{entry.customerId}}
+                                        td(md-cell) {{entry.clientMac}}
+                                        td(md-cell) {{entry.ssid}}
+                                        td(md-cell) {{entry.lockingStartTime}}
+                                        td(md-cell)
+                                            md-button.md-primary.md-raised(ng-click="unlock(entry)") Unlock                                        
+                        md-table-pagination(md-limit="query.limit" md-limit-options="[10, 25, 50]" md-page="query.page" md-total="{{displayedBlacklist.length}}" md-page-select)
+                    
+
+
+        script(src="/bower_components/angular/angular.min.js")
+
+        script(src="/bower_components/angular-aria/angular-aria.js")
+        script(src="/bower_components/angular-animate/angular-animate.min.js")
+        script(src="/bower_components/angular-material/angular-material.js")
+        script(src="/bower_components/angular-messages/angular-messages.js")
+        script(src="/bower_components/angular-translate/angular-translate.min.js")
+        script(src="/bower_components/angular-sanitize/angular-sanitize.min.js")
+        script(src="/bower_components/angular-material-data-table/dist/md-data-table.min.js")
+        script(src="/web-app/web-app.js")
+        script(src="/web-app/modals/controller.js")
+        script(src="/web-app/modals/controller.js")
+        script(src="/web-app/modals/services.js")
