@@ -1,7 +1,9 @@
+#!/bin/sh
+
 cd /app/bin
 if [ "$1" ]
 then
-    PORT=$1 node ./www
+    NODE_ENV="development" PORT=$1 node ./www
 else
-    PORT=51360 node ./www
+    NODE_ENV="development" PORT=3685 node ./www
 fi
